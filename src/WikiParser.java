@@ -24,11 +24,16 @@ public class WikiParser {
         XMLManager.load(new  PageProcessor(){
             @Override
             public void process(Page page){
-                writeArticleToFile(nameKey[0], page.getTitle());
-                for(String link : page.getLinks()){
-                    writeArticleEdgeToFile(page.getTitle(), link);
+                //En side kan være opprettet, men oppfyller ikke krav og har ingen tittel
+                //En side som ikke har tittel skal ikke lagres
+                //Vi lagrer kun artikler som oppfyller kravet om gitt kategori
+                if(page.getTitle() != null && page.getCategories().size() > 0) {
+                    writeArticleToFile(nameKey[0], page.getTitle());
+                    for (String link : page.getLinks()) {
+                        writeArticleEdgeToFile(page.getTitle(), link);
+                    }
+                    nameKey[0]++;
                 }
-                nameKey[0]++;
             }
         });
 
