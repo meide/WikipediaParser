@@ -11,7 +11,7 @@ public class XMLManager {
 
         try {
             SAXParser parser = factory.newSAXParser();
-            File file = new File("file.xml");
+            File file = new File("enwiki-20150304-pages-articles.xml");
             PageHandler pageHandler = new PageHandler(processor);
             parser.parse(file, pageHandler);
         }catch (Exception e){

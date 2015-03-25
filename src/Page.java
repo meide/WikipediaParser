@@ -27,15 +27,19 @@ public class Page{
     }
 
     public void addLink(String link){
-        links.add(link);
+        if(!links.contains(link)) {
+            links.add(link);
+        }
     }
 
     public ArrayList<String> getLinks(){
         return links;
     }
 
-    public void addCategory(String category){
-        categories.add(category);
+    public void addCategory(String category) {
+        if (!categories.contains(category)) {
+            categories.add(category);
+        }
     }
 
     public ArrayList<String> getCategories(){

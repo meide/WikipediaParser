@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.HashMap;
 
 public class WikiParser {
     // Assume default encoding.
@@ -8,6 +9,8 @@ public class WikiParser {
     // Always wrap FileWriter in BufferedWriter.
     private static BufferedWriter bufferedWriter;
     private static BufferedWriter bufferedWriter2;
+
+    private static HashMap<String,String> pages = new HashMap<String, String>();
 
     public static void main(final String[] args) throws IOException {
         //Oppretter en fil for alle artiklene og en for kantene
@@ -24,14 +27,13 @@ public class WikiParser {
         XMLManager.load(new  PageProcessor(){
             @Override
             public void process(Page page){
-                //En side kan være opprettet, men oppfyller ikke krav og har ingen tittel
-                //En side som ikke har tittel skal ikke lagres
-                //Vi lagrer kun artikler som oppfyller kravet om gitt kategori
-                if(page.getTitle() != null && page.getCategories().size() > 0) {
+                if (page.getTitle() != null && page.getCategories().size() > 0) {
                     writeArticleToFile(nameKey[0], page.getTitle());
                     for (String link : page.getLinks()) {
-                        writeArticleEdgeToFile(page.getTitle(), link);
+                            writeArticleEdgeToFile(page.getTitle(), link);
                     }
+
+                    pages.put(page.getTitle(), page.getTitle());
                     nameKey[0]++;
                 }
             }
@@ -61,9 +63,16 @@ public class WikiParser {
         }
 
         String edgeLine = bufferedReader2.readLine();
+        int teller = 0;
         while(edgeLine != null){
-            bufferedWriter.write(edgeLine);
-            bufferedWriter.newLine();
+            String[] felt = edgeLine.split(",");
+            if(felt.length == 2) {
+                if ((teller == 0 || pages.containsKey(felt[1]))){
+                    bufferedWriter.write(edgeLine);
+                    bufferedWriter.newLine();
+                    teller++;
+                }
+            }
             edgeLine = bufferedReader2.readLine();
         }
     }
