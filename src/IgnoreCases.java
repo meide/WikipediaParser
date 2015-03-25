@@ -25,6 +25,23 @@ public class IgnoreCases {
         cases.add("Topic:");
         cases.add("Special:");
         cases.add("Media:");
+        cases.add("Wikipedia talk:");
+        cases.add("User talk:");
+        cases.add("File talk:");
+        cases.add("MediaWiki talk:");
+        cases.add("Template talk:");
+        cases.add("Help talk:");
+        cases.add("Category talk:");
+        cases.add("Portal talk:");
+        cases.add("Book talk:");
+        cases.add("Draft talk:");
+        cases.add("Education Program talk:");
+        cases.add("TimedText talk:");
+        cases.add("Module talk:");
+        cases.add("Topic talk:");
+        cases.add("Special talk:");
+        cases.add("Media talks:");
+
     }
 
     public ArrayList<String> getCases(){

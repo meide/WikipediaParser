@@ -15,10 +15,12 @@ public class PageHandler extends DefaultHandler {
     private final PageProcessor processor;
     private Page page;
     private IgnoreCases ignoreCases;
+    private CategoryCases categoryCases;
 
     public PageHandler(PageProcessor processor){
         this.processor = processor;
         ignoreCases = new IgnoreCases();
+        categoryCases = new CategoryCases();
     }
 
     @Override
@@ -68,10 +70,12 @@ public class PageHandler extends DefaultHandler {
                 String link = felt[0];
 
                 //Lagre kategorien om den fyller kravet
-                if (link.contains("Category:Network theory") || link.contains("Category:Computer science") || link.contains("Category:Latin language")) {
-                    String[] categorySplit = felt[0].split(":");
-                    page.addCategory(categorySplit[1]);
-                    break;
+                for(String catCase : categoryCases.getCategoryCases()) {
+                    if (link.equals(catCase)) {
+                        String[] categorySplit = felt[0].split(":");
+                        page.addCategory(categorySplit[1]);
+                        break;
+                    }
                 }
 
                 boolean saveLink = true;
